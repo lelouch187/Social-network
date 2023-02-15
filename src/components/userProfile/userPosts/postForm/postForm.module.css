@@ -1,0 +1,27 @@
+.wrapper{
+    margin: 20px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 10px;
+}
+.form input {
+    border: none;
+    margin-bottom: 20px;
+    outline: none;
+}
+.button{
+    max-width: 140px;
+    padding: 3px 10px;
+    position: absolute;
+    
+    right: 0;
+    bottom: 0;
+
+}
+
