@@ -1,15 +1,21 @@
-import { FC } from "react"
-import Post from "./post"
+import { FC } from 'react';
+import { useAppSelector } from '../../../../hooks/reduxHoks';
+import { selectPosts } from '../../../../redux/slice/profilePageSlice';
 
-import s from './posts.module.css'
+import Post from './post';
 
-const Posts:FC = () => {
+import s from './posts.module.css';
+
+const Posts: FC = () => {
+  const posts = useAppSelector(selectPosts);
   return (
     <div className={s.posts}>
-        <Post />
-        <Post />
-        <Post />
+      {posts.length
+        ? posts.map((post) => {
+            return <Post key={post.id} post={post} />;
+          })
+        : null}
     </div>
-  )
-}
-export default Posts
+  );
+};
+export default Posts;

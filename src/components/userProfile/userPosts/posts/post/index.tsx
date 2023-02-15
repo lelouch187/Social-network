@@ -1,6 +1,17 @@
-import s from './post.module.css'
+import { CloseOutlined } from '@ant-design/icons';
+import { FC } from 'react';
+import { useAppDispatch } from '../../../../../hooks/reduxHoks';
+import { removePost } from '../../../../../redux/slice/profilePageSlice';
+import { IPost } from '../../../../types/types';
 
-const Post = () => {
+import s from './post.module.css';
+
+interface IPostProps {
+  post: IPost;
+}
+
+const Post: FC<IPostProps> = ({ post }) => {
+  const dispatch = useAppDispatch();
   return (
     <div className={s.wrapper}>
       <div className={s.imgWrapper}>
@@ -9,7 +20,11 @@ const Post = () => {
           alt="аватар"
         />
       </div>
-      <p className={s.text}>Текст какого-то поста!</p>
+      <p className={s.text}>{post.text}</p>
+      <CloseOutlined
+        onClick={() => dispatch(removePost(post.id))}
+        className={s.icon}
+      />
     </div>
   );
 };
