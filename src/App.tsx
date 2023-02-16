@@ -1,16 +1,18 @@
 import { Layout } from 'antd';
 import { FC } from 'react';
+
+import AppRouter from './components/AppRouter';
 import Header from './components/header';
 import SideBar from './components/sideBar';
-import UserProfile from './components/userProfile';
+
 
 const App: FC = () => {
   return (
     <Layout className="App">
       <Header />
-      <Layout className='container'>
+      <Layout className="container">
         <SideBar />
-        <UserProfile />
+        <AppRouter />
       </Layout>
     </Layout>
   );
