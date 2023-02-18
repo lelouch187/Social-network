@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import { FC } from 'react';
 
-import AppRouter from './components/AppRouter';
+import AppRouter from './router/AppRouter';
 import Header from './components/header';
 import SideBar from './components/sideBar';
 

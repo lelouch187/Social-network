@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IPost } from '../../components/types/types';
+import { IPost } from '../../types/types';
 import { RootState } from '../store';
 
 interface ProfilePageState {
@@ -17,14 +17,14 @@ const profilePageSlice = createSlice({
     addPost: (state, { payload }: PayloadAction<IPost>) => {
       state.posts.push(payload);
     },
-    removePost:(state,{ payload }:PayloadAction<string>)=>{
-        state.posts=state.posts.filter(post=>post.id!==payload)
-    }
+    removePost: (state, { payload }: PayloadAction<string>) => {
+      state.posts = state.posts.filter((post) => post.id !== payload);
+    },
   },
 });
 
-export const { addPost,removePost } = profilePageSlice.actions;
+export const { addPost, removePost } = profilePageSlice.actions;
 
-export const selectPosts = (state:RootState)=>state.profile.posts
+export const selectPosts = (state: RootState) => state.profile.posts;
 
 export default profilePageSlice.reducer;
