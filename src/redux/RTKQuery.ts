@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
-import type { IFethUser } from '../types/types';
+import type { Paginate, ResponseUsers } from '../types/types';
 
 // Define a service using a base URL and expected endpoints
 export const socialNetworkApi = createApi({
@@ -11,15 +11,9 @@ export const socialNetworkApi = createApi({
     { maxRetries: 3 },
   ),
   endpoints: (builder) => ({
-    getUsers: builder.query<IFethUser[], string>({
-      query: () => 'users',
-      transformResponse: (rawResult: {
-        items: [users: IFethUser];
-        totalCount: number;
-        error?: string | null;
-      }) => {
-        return rawResult.items;
-      },
+    getUsers: builder.query<ResponseUsers, Paginate>({
+      query: ({ page = 1, userInPage = 10 }) =>
+        `users?page=${page}&count=${userInPage}`,
     }),
   }),
 });

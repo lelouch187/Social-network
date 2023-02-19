@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { Button } from 'antd';
-import { ChangeEvent,  FC,  useState } from 'react';
+import { ChangeEvent,  FC,  FormEvent,  useRef,  useState } from 'react';
 import { useAppDispatch } from '../../../../hooks/reduxHoks';
 import { addPost } from '../../../../redux/slice/profilePageSlice';
 
@@ -10,8 +10,8 @@ const PostForm: FC = () => {
   const [value, setValue] = useState<string>('');
   const dispatch = useAppDispatch();
 
-
-  const onSubmit = (e: any) => {
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     const post = {
       id:nanoid(),
@@ -19,13 +19,14 @@ const PostForm: FC = () => {
     }
     dispatch(addPost(post));
     setValue('');
+    inputRef.current?.focus()
   };
 
   return (
     <div className={s.wrapper}>
       <form onSubmit={onSubmit}
       className={s.form}>
-        <input
+        <input ref={inputRef}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setValue(e.target.value)
           }

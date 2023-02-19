@@ -4,9 +4,9 @@ export interface IPost {
 }
 export interface IUser {
   id: string;
-  name:string;
-  fullName:string;
-  avatar:string;
+  name: string;
+  fullName: string;
+  avatar: string;
 }
 interface Photos {
   small?: string | null;
@@ -20,4 +20,13 @@ export interface IFethUser {
   photos: Photos;
   status?: any;
   followed: boolean;
+}
+export interface ResponseUsers {
+  items: IFethUser[];
+  totalCount: number;
+  error?: string | null;
+}
+export interface Paginate {
+  page: number;
+  userInPage: number;
 }

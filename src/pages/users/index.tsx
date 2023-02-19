@@ -1,21 +1,33 @@
-import { Layout } from 'antd';
-import { FC } from 'react';
+import { Layout, Pagination } from 'antd';
+import { FC, useState } from 'react';
+
 import { useGetUsersQuery } from '../../redux/RTKQuery';
 import User from './user';
 import SkeletonUser from './user/skeletonUser';
 import s from './users.module.css';
 
 const UsersPage: FC = () => {
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useGetUsersQuery('', { refetchOnReconnect: true });
-  if (users) {
+  const [page, setPage] = useState<number>(1);
+  const [userInPage, setUserInPage] = useState<number>(10);
+  const { data, error, isLoading } = useGetUsersQuery(
+    { page, userInPage },
+    { refetchOnReconnect: true },
+  );
+
+  if (data?.items) {
     return (
-      <Layout.Content className="content">
-        <div className={s.wrapper}>
-          {users.map((user) => {
+      <Layout.Content>
+        <Pagination style={{paddingTop:'15px', textAlign:'center'}}
+          onShowSizeChange={(page: number, userInPage: number) => {
+            setUserInPage(userInPage);
+          }}
+          onChange={(page: number) => setPage(page)}
+          current={page}
+          total={Math.ceil(data.totalCount / userInPage)}
+        />
+        <div 
+        className={`${s.wrapper} content`}>
+          {data.items.map((user) => {
             return <User key={user.id} user={user} />;
           })}
         </div>
