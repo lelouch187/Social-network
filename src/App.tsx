@@ -7,6 +7,7 @@ import SideBar from './components/sideBar';
 
 
 const App: FC = () => {
+
   return (
     <Layout className="App">
       <Header />
