@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IUser } from '../../types/types';
+import { IUser } from '../../types';
 import { RootState } from '../store';
 
 interface DialogsPageState {

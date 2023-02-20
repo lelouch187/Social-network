@@ -1,31 +1,56 @@
-import { FC } from "react";
+import { FC } from 'react';
+import { useGetProfileQuery } from '../../../redux/RTKQuery';
+import ava from '../../../assets/img/ava.jpeg';
 
-import s from './userDate.module.css'
+import s from './userDate.module.css';
+import SocialInfo from '../../../components/Social';
+import UserDateLoader from './userDateLoader';
 
-const UserDate:FC=() => {
+interface ISerDateProps {
+  userId: string | undefined;
+}
+
+const UserDate: FC<ISerDateProps> = ({ userId }) => {
+  const { data, isFetching } = useGetProfileQuery(userId!);
+
+  if (data && !isFetching) {
+    return (
+      <div className={s.wrapper}>
+        <div className={s.wrapperImg}>
+          <img
+            src={data?.photos.large ? data.photos.large : ava}
+            alt="аватар"
+          />
+        </div>
+        <div className={s.userInfo}>
+          <h3 className={s.title}>{data?.fullName}</h3>
+          <p className={s.item}>
+            <span>Обо мне:</span>{' '}
+            {data?.aboutMe ? data?.aboutMe : 'не заполнено'}
+          </p>
+          <div>
+            <h3 className={s.title}>Социальные сети:</h3>
+            <SocialInfo socials={data?.contacts} />
+          </div>
+          <div>
+            <p className={s.item}>
+              <span>В поисках работы:</span>{' '}
+              {data?.lookingForAJob ? 'да' : 'нет'}
+            </p>
+            <p className={s.item}>
+              <span>Описание желаемой работы:</span>{' '}
+              {data?.lookingForAJobDescription
+                ? data?.lookingForAJobDescription
+                : 'не заполнено'}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={s.wrapper}>
-      <div className={s.wrapperImg}>
-        <img
-          src="https://pixelbox.ru/wp-content/uploads/2021/06/ava-steam-anime-tyan-19.jpg"
-          alt="аватар"
-        />
-      </div>
-      <div className={s.userInfo}>
-        <p className={s.item}>Иван М.</p>
-        <p className={s.item}>День рождение: 2 сентября</p>
-        <p className={s.item}>Город: Омск</p>
-        <p className={s.item}>Образование: ОмГУПС'21</p>
-        <p className={s.item}>
-          Веб-сайт:{' '}
-          <a
-            href="https://github.com/lelouch187"
-            rel="noreferrer"
-            target="_blank">
-            github.com/lelouch187
-          </a>
-        </p>
-      </div>
+      <UserDateLoader />
     </div>
   );
 };

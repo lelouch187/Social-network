@@ -7,10 +7,11 @@ import UserProfile from '../pages/userProfile';
 import UsersPage from '../pages/users';
 
 export enum RouteNames {
-  PROFILE = '/',
+  MYPROFILE = '/',
   DIALOGS = 'dialogs',
   DIALOG = 'dialogs/:id',
   USERS = 'users',
+  USERSPROFILE = 'users/:id',
   NEWS = 'news',
   MUSIC = 'music',
   SETTING = 'settings',
@@ -20,7 +21,8 @@ export enum RouteNames {
 const AppRouter: FC = () => {
   return (
     <Routes>
-      <Route path={RouteNames.PROFILE} element={<UserProfile />} />
+      <Route path={RouteNames.MYPROFILE} element={<UserProfile />} />
+      <Route path={RouteNames.USERSPROFILE} element={<UserProfile />} />
       <Route path={RouteNames.DIALOGS} element={<Dialogs />} />
       <Route path={RouteNames.DIALOG} element={<DialogChat />} />
       <Route path={RouteNames.USERS} element={<UsersPage />} />

@@ -9,15 +9,16 @@ import s from './users.module.css';
 const UsersPage: FC = () => {
   const [page, setPage] = useState<number>(1);
   const [userInPage, setUserInPage] = useState<number>(10);
-  const { data, error, isLoading } = useGetUsersQuery(
+  const { data, error, isLoading, isFetching } = useGetUsersQuery(
     { page, userInPage },
     { refetchOnReconnect: true },
   );
 
-  if (data?.items) {
+  if (data?.items && !isFetching) {
     return (
       <Layout.Content>
-        <Pagination style={{paddingTop:'15px', textAlign:'center'}}
+        <Pagination
+          style={{ paddingTop: '15px', textAlign: 'center' }}
           onShowSizeChange={(page: number, userInPage: number) => {
             setUserInPage(userInPage);
           }}
@@ -25,8 +26,7 @@ const UsersPage: FC = () => {
           current={page}
           total={Math.ceil(data.totalCount / userInPage)}
         />
-        <div 
-        className={`${s.wrapper} content`}>
+        <div className={`${s.wrapper} content`}>
           {data.items.map((user) => {
             return <User key={user.id} user={user} />;
           })}
@@ -45,9 +45,9 @@ const UsersPage: FC = () => {
       </Layout.Content>
     );
   }
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
-      <Layout.Content className="content">
+      <Layout.Content style={{ marginTop: '50px' }} className="content">
         <div className={s.wrapper}>
           {[...new Array(7)].map((_, i) => {
             return <SkeletonUser key={i} />;

@@ -2,7 +2,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { FC } from 'react';
 import { useAppDispatch } from '../../../../../hooks/reduxHoks';
 import { removePost } from '../../../../../redux/slice/profilePageSlice';
-import { IPost } from '../../../../../types/types';
+import { IPost } from '../../../../../types';
 
 import s from './post.module.css';
 

@@ -13,7 +13,7 @@ const SideBar: FC = () => {
           className={({ isActive }) =>
             isActive ? `${s.active} ${s.link}` : `${s.link}`
           }
-          to={RouteNames.PROFILE}>
+          to={RouteNames.MYPROFILE}>
           Профиль
         </NavLink>
       </p>

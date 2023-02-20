@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IPost } from '../../types/types';
+import { IPost } from '../../types';
 import { RootState } from '../store';
 
 interface ProfilePageState {
