@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Layout } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { RouteNames } from '../../router/AppRouter';
+import { PrivateRoutes } from '../../router/AppRouter';
 
 import s from './sideBar.module.css';
 
@@ -13,7 +13,7 @@ const SideBar: FC = () => {
           className={({ isActive }) =>
             isActive ? `${s.active} ${s.link}` : `${s.link}`
           }
-          to={RouteNames.MYPROFILE}>
+          to={PrivateRoutes.MYPROFILE}>
           Профиль
         </NavLink>
       </p>
@@ -22,16 +22,16 @@ const SideBar: FC = () => {
           className={({ isActive }) =>
             isActive ? `${s.active} ${s.link}` : `${s.link}`
           }
-          to={RouteNames.DIALOGS}>
+          to={PrivateRoutes.DIALOGS}>
           Сообщения
         </NavLink>
       </p>
       <p className={s.item}>
-        <NavLink
+        <NavLink end
           className={({ isActive }) =>
             isActive ? `${s.active} ${s.link}` : `${s.link}`
           }
-          to={RouteNames.USERS}>
+          to={PrivateRoutes.USERS}>
           Пользователи
         </NavLink>
       </p>
@@ -40,7 +40,7 @@ const SideBar: FC = () => {
           className={({ isActive }) =>
             isActive ? `${s.active} ${s.link}` : `${s.link}`
           }
-          to={RouteNames.NEWS}>
+          to={PrivateRoutes.NEWS}>
           Новости
         </NavLink>
       </p>
@@ -49,7 +49,7 @@ const SideBar: FC = () => {
           className={({ isActive }) =>
             isActive ? `${s.active} ${s.link}` : `${s.link}`
           }
-          to={RouteNames.MUSIC}>
+          to={PrivateRoutes.MUSIC}>
           Музыка
         </NavLink>
       </p>
@@ -58,7 +58,7 @@ const SideBar: FC = () => {
           className={({ isActive }) =>
             isActive ? `${s.active} ${s.link}` : `${s.link}`
           }
-          to={RouteNames.SETTING}>
+          to={PrivateRoutes.SETTING}>
           Настройки
         </NavLink>
       </p>

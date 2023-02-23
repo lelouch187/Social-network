@@ -32,22 +32,34 @@ export interface IPaginate {
 }
 
 export interface IContacts {
-  facebook:string | null;
-  website:string | null;
-  vk:string | null;
-  twitter:string | null;
-  instagram:string | null;
-  youtube:string | null;
-  github:string | null;
-  mainLink:string | null;
+  facebook: string | null;
+  website: string | null;
+  vk: string | null;
+  twitter: string | null;
+  instagram: string | null;
+  youtube: string | null;
+  github: string | null;
+  mainLink: string | null;
 }
 
 export interface IProfileUser {
-  aboutMe: string | null,
-  contacts: IContacts,
-  lookingForAJob: boolean,
-  lookingForAJobDescription: string | null,
-  fullName: string,
-  userId: number,
-  photos: IPhotos,
-  }
+  aboutMe: string | null;
+  contacts: IContacts;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string | null;
+  fullName: string;
+  userId: number;
+  photos: IPhotos;
+}
+export interface Data {
+  id: number;
+  login: string;
+  email: string;
+}
+
+export interface IAuth {
+  data: Data;
+  messages: string[];
+  fieldsErrors: string[];
+  resultCode: number;
+}

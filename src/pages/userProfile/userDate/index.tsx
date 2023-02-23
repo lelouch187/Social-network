@@ -7,11 +7,11 @@ import SocialInfo from '../../../components/Social';
 import UserDateLoader from './userDateLoader';
 
 interface ISerDateProps {
-  userId: string | undefined;
+  userId: string;
 }
 
 const UserDate: FC<ISerDateProps> = ({ userId }) => {
-  const { data, isFetching } = useGetProfileQuery(userId!);
+  const { data, isFetching } = useGetProfileQuery(userId);
 
   if (data && !isFetching) {
     return (

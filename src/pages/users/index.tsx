@@ -1,18 +1,33 @@
 import { Layout, Pagination } from 'antd';
-import { FC, useState } from 'react';
+import { FC, MouseEvent, useEffect, useState } from 'react';
 
-import { useGetUsersQuery } from '../../redux/RTKQuery';
+import { useFollowUserMutation, useGetUsersQuery, useUnFollowUserMutation } from '../../redux/RTKQuery';
 import User from './user';
 import SkeletonUser from './user/skeletonUser';
 import s from './users.module.css';
 
 const UsersPage: FC = () => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(Number(localStorage.getItem('page'))||1);
   const [userInPage, setUserInPage] = useState<number>(10);
-  const { data, error, isLoading, isFetching } = useGetUsersQuery(
+  const { data, error, isLoading, isFetching, refetch } = useGetUsersQuery(
     { page, userInPage },
-    { refetchOnReconnect: true },
+    { refetchOnReconnect: true},
   );
+  const [follow] = useFollowUserMutation()
+  const [unFollow ] = useUnFollowUserMutation()
+  const onFollow = async (e:MouseEvent<HTMLElement>,userId:number)=> {
+    e.stopPropagation()
+   await unFollow(userId).unwrap().then(()=>refetch())
+  }
+  const onUnFollow =async (e:MouseEvent<HTMLElement>,userId:number) => {
+    e.stopPropagation()
+  await  follow(userId).unwrap().then(()=>refetch())
+  }
+
+  useEffect(() => {
+    localStorage.setItem('page', page.toString())
+  }, [page]);
+
 
   if (data?.items && !isFetching) {
     return (
@@ -28,7 +43,9 @@ const UsersPage: FC = () => {
         />
         <div className={`${s.wrapper} content`}>
           {data.items.map((user) => {
-            return <User key={user.id} user={user} />;
+            return <User onUnFollow={onUnFollow}
+            onFollow={onFollow}
+            key={user.id} user={user} />;
           })}
         </div>
       </Layout.Content>
