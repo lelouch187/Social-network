@@ -11,7 +11,7 @@ import Posts from './userPosts/posts';
   }
 
 const UserProfile: FC<IUserProfileProps> = ({myId}) => {
-  let { id } = useParams<string>()
+  let { id } = useParams()
 
   if (!id) {
     id=myId!.toString()
@@ -19,8 +19,8 @@ const UserProfile: FC<IUserProfileProps> = ({myId}) => {
 
   return (
     <Layout.Content className="content">
-      <UserDate userId={id} />
-      <PostForm />
+      <UserDate userId={id} myId={myId!}  />
+      {id&&Number(id)===myId?<PostForm />:null}
       <Posts />
     </Layout.Content>
   );

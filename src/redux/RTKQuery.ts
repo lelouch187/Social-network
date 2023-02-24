@@ -1,9 +1,15 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
-import type { IAuth, IPaginate, IProfileUser, IResponseUsers } from '../types';
-
+import type {
+  AuthLogin,
+  IAuth,
+  IPaginate,
+  IProfileUser,
+  IResponseUsers,
+} from '../types';
 
 export const socialNetworkApi = createApi({
   reducerPath: 'socialNetworkApi',
+  tagTypes: ['Users', 'AUTH'],
   baseQuery: retry(
     fetchBaseQuery({
       baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
@@ -27,20 +33,52 @@ export const socialNetworkApi = createApi({
       query: () => ({
         url: 'auth/me',
       }),
+      providesTags: (result) => ['AUTH'],
     }),
-    followUser: builder.mutation({
+    checkFollow: builder.query<boolean, number>({
+      query: (userId) => `/follow/${userId}`,
+      providesTags: (result) => ['Users'],
+    }),
+    followUser: builder.mutation<any, number>({
       query: (userId) => ({
         url: `follow/${userId}`,
         method: 'POST',
-        invalidatesTags: (result:any, error:any, {userId}:any) => [{type: "FOLLOW", userId}],
       }),
+      invalidatesTags: ['Users'],
     }),
-    unFollowUser: builder.mutation({
+    unFollowUser: builder.mutation<any, number>({
       query: (userId) => ({
         url: `follow/${userId}`,
         method: 'DELETE',
-        invalidatesTags: (result:any, error:any, {userId}:any) => [{type: "FOLLOW", userId}],
       }),
+      invalidatesTags: ['Users'],
+    }),
+    getStatus: builder.query<string, number | string>({
+      query: (userId) => ({
+        url: `profile/status/${userId}`,
+      }),
+    }),
+    changeMyStatus: builder.mutation<any, string>({
+      query: (messageStatus) => ({
+        url: 'profile/status',
+        method: 'PUT',
+        body: { status: messageStatus },
+      }),
+    }),
+    onLogin: builder.mutation<any, AuthLogin>({
+      query: (data) => ({
+        url: 'auth/login',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['AUTH'],
+    }),
+    onLogout: builder.mutation<any, null>({
+      query: () => ({
+        url: 'auth/login',
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['AUTH'],
     }),
   }),
 });
@@ -49,6 +87,11 @@ export const {
   useGetUsersQuery,
   useGetProfileQuery,
   useIsAuthQuery,
+  useCheckFollowQuery,
   useFollowUserMutation,
   useUnFollowUserMutation,
+  useGetStatusQuery,
+  useChangeMyStatusMutation,
+  useOnLoginMutation,
+  useOnLogoutMutation,
 } = socialNetworkApi;

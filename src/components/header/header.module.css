@@ -2,3 +2,8 @@
     height: 60px !important;
     background-color: white !important;
 }
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

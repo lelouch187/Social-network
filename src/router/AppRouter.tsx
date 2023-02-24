@@ -6,7 +6,7 @@ import Login from '../pages/login';
 import NotFound from '../pages/NotFound';
 import UserProfile from '../pages/userProfile';
 import UsersPage from '../pages/users';
-import { useIsAuthQuery } from '../redux/RTKQuery';
+import { IAuth } from '../types';
 
 export enum PrivateRoutes {
   MYPROFILE = '/',
@@ -22,15 +22,18 @@ export enum PrivateRoutes {
 export enum PublicRoutes {
   LOGIN= 'login'
 }
+  interface AppRouterState {
+    isAuth: IAuth | undefined
+  }
 
-const AppRouter: FC = () => {
-  const {data} = useIsAuthQuery(null)
+const AppRouter: FC<AppRouterState> = ({isAuth}) => {
 
-  if (data?.resultCode === 0) {
+
+  if (isAuth?.resultCode === 0) {
     return (
       <Routes>
-        <Route path={PrivateRoutes.MYPROFILE} element={<UserProfile myId={data.data.id} />} />
-        <Route path={`users/${data.data.id}`} element={<Navigate to='/' replace/>}/>
+        <Route path={PrivateRoutes.MYPROFILE} element={<UserProfile myId={isAuth.data.id} />} />
+        <Route path={`users/${isAuth.data.id}`} element={<Navigate to='/' replace/>}/>
         <Route path={PublicRoutes.LOGIN} element={<Navigate to={PrivateRoutes.MYPROFILE} replace/>}/>
         <Route path={PrivateRoutes.USERSPROFILE} element={<UserProfile />} />
         <Route path={PrivateRoutes.DIALOGS} element={<Dialogs />} />

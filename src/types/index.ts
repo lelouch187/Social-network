@@ -56,10 +56,24 @@ export interface Data {
   login: string;
   email: string;
 }
-
-export interface IAuth {
+interface AuthTrue {
   data: Data;
   messages: string[];
   fieldsErrors: string[];
-  resultCode: number;
+  resultCode: 0;
+}
+interface AuthFalse {
+  data: {};
+  messages: string[];
+  fieldsErrors: string[];
+  resultCode: 1;
+}
+
+export type IAuth = AuthTrue | AuthFalse;
+
+export interface AuthLogin {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+  captcha?: boolean;
 }
