@@ -6,22 +6,26 @@
   font-size: 16px;
 }
 .container{
-  max-width: 1170px;
+  width: 1170px;
   padding: 0 15px;
+  margin: 0 auto;
 }
 .App{
   height:100vh;
+
 }
 .content{
   background-color: #f5f5f5;
+  width: 100%;
   overflow: auto;
 }
 .wrapper{
-  height: calc(100vh - 150px);
   background-color: white;
   margin: 20px;
   border-radius: 12px;
   position: relative;
+  padding: 20px;
+  width: 100%;
 }
 .upload {
   margin-bottom: 20px;

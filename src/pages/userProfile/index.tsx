@@ -18,7 +18,7 @@ const UserProfile: FC<IUserProfileProps> = ({myId}) => {
   }
 
   return (
-    <Layout.Content className="content">
+    <Layout.Content className=" container">
       <UserDate userId={id} myId={myId!}  />
       {id&&Number(id)===myId?<PostForm />:null}
       <Posts />

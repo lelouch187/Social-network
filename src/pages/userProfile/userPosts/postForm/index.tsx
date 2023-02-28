@@ -23,7 +23,7 @@ const PostForm: FC = () => {
   };
 
   return (
-    <div className={s.wrapper}>
+    <div className='wrapper'>
       <form onSubmit={onSubmit}
       className={s.form}>
         <input ref={inputRef}
