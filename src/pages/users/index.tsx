@@ -37,9 +37,10 @@ const UsersPage: FC = () => {
   if (data?.items && !isFetching) {
     return (
       <Layout.Content>
-        <Pagination
+        <Pagination pageSizeOptions = {[5,10,15]}
+        defaultPageSize={userInPage}
           style={{ paddingTop: '15px', textAlign: 'center' }}
-          onShowSizeChange={(page: number, userInPage: number) => {
+          onShowSizeChange={(_, userInPage: number) => {
             setUserInPage(userInPage);
           }}
           onChange={(page: number) => setPage(page)}

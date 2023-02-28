@@ -6,7 +6,7 @@ import { AuthLogin } from '../../types';
 
 
 const Login: FC = () => {
-  const [onAuth] = useOnLoginMutation()
+  const [onAuth, {isLoading}] = useOnLoginMutation()
 
   const onFinish =async (values: AuthLogin) => {
    await onAuth(values).unwrap().then((res)=>{
@@ -44,7 +44,8 @@ const Login: FC = () => {
     </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button loading={isLoading}
+        type="primary" htmlType="submit">
           Войти
         </Button>
       </Form.Item>

@@ -8,13 +8,13 @@ import { useIsAuthQuery } from './redux/RTKQuery';
 
 
 const App: FC = () => {
-  const {data:isAuth} = useIsAuthQuery(null)
+  const {data:isAuth, isLoading} = useIsAuthQuery(null)
   return (
     <Layout className="App">
       <Header />
       <Layout className="container">
         <SideBar />
-        <AppRouter isAuth={isAuth}  />
+        {!isLoading&&<AppRouter isAuth={isAuth}  />}
       </Layout>
     </Layout>
   );

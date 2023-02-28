@@ -27,3 +27,15 @@ span{
     font-weight: bold;
     font-size: 18px;
 }
+.changeAvatar{
+    margin-left: 20px;
+    color:grey;
+    cursor:pointer;
+}
+.titleChange {
+    opacity: 0.5;
+    font-weight: 300;
+    cursor: pointer;
+    margin-left: 30px;
+    border-bottom: 2px dashed;
+}

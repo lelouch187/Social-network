@@ -9,7 +9,7 @@ import type {
 
 export const socialNetworkApi = createApi({
   reducerPath: 'socialNetworkApi',
-  tagTypes: ['Users', 'AUTH'],
+  tagTypes: ['Users', 'AUTH', 'PROFILE'],
   baseQuery: retry(
     fetchBaseQuery({
       baseUrl: 'https://social-network.samuraijs.com/api/1.0/',
@@ -28,6 +28,7 @@ export const socialNetworkApi = createApi({
     }),
     getProfile: builder.query<IProfileUser, string | number>({
       query: (id) => `profile/${id}`,
+      providesTags: (result) => ['PROFILE'],
     }),
     isAuth: builder.query<IAuth, null>({
       query: () => ({
@@ -80,6 +81,14 @@ export const socialNetworkApi = createApi({
       }),
       invalidatesTags: ['AUTH'],
     }),
+    changeAvatar: builder.mutation<any, any>({
+      query: (image) => ({
+        url: 'profile/photo',
+        method: 'PUT',
+        body: image,
+      }),
+      //invalidatesTags: ['PROFILE'], 
+    }),
   }),
 });
 
@@ -94,4 +103,5 @@ export const {
   useChangeMyStatusMutation,
   useOnLoginMutation,
   useOnLogoutMutation,
+  useChangeAvatarMutation,
 } = socialNetworkApi;
